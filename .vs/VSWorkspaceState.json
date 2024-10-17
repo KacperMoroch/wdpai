@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\docker",
+    "\\docker\\nginx",
+    "\\docker\\php"
+  ],
+  "SelectedNode": "\\docker-compose.yml",
+  "PreviewInSolutionExplorer": false
+}
