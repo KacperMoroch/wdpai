@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\docker",
+    "\\docker\\db",
     "\\docker\\nginx",
     "\\docker\\php"
   ],
-  "SelectedNode": "\\docker-compose.yml",
+  "SelectedNode": "\\docker\\db\\Dockerfile",
   "PreviewInSolutionExplorer": false
 }
