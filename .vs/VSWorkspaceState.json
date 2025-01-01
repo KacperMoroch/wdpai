@@ -1,11 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\docker",
-    "\\docker\\db",
-    "\\docker\\nginx",
-    "\\docker\\php"
+    "\\public",
+    "\\public\\views",
+    "\\src",
+    "\\src\\controllers",
+    "\\__MACOSX",
+    "\\__MACOSX\\public",
+    "\\__MACOSX\\public\\views"
   ],
-  "SelectedNode": "\\docker\\db\\Dockerfile",
+  "SelectedNode": "\\__MACOSX\\public\\views",
   "PreviewInSolutionExplorer": false
 }
