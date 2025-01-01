@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="public/styles/style.css">
 </head>
-<body>
+<body class="login-page">
     <div class="overlay">
         <div class="login-container">
             <h1>ZALOGUJ SIĘ</h1>

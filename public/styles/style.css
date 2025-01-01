@@ -1,31 +1,47 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%; /* Zapewnia, że elementy będą zajmować pełną wysokość ekranu */
-    overflow: hidden; /* Zablokowanie przewijania */
-    font-family: 'Arial', sans-serif; /* Czcionka na zwykłą */
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
     color: white;
 }
 
 body {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Ustawiamy na górze */
-    background: url('../assets/logo.jpg') top center/cover no-repeat;
-    transform: scale(1); /* Zapobiega skalowaniu przy przybliżaniu/oddalaniu */
+    align-items: flex-start;
+    transform: scale(1);
     width: 100vw;
     height: 100vh;
 }
 
+
+body.login-page {
+    background: url('../assets/logo.jpg') top center/cover no-repeat;
+}
+
+body.login-page .login-container {
+    margin-top: 350px; 
+}
+
+body.register-page {
+    background: url('../assets/tlo_register.jpg') top center/cover no-repeat;
+}
+
+body.register-page .login-container {
+    margin-top: 150px; 
+}
+
 .overlay {
-    position: fixed; /* Mamy fixed, żeby nie przesuwało się przy przewijaniu */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Ustawiamy na górze */
+    align-items: flex-start;
 }
 
 .login-container {
@@ -33,11 +49,10 @@ body {
     padding: 40px;
     width: 90%;
     max-width: 400px;
-    margin-top: 350px; 
 }
 
 h1 {
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
     margin-top: 40px;
     margin-bottom: 20px;
     background: none;
@@ -50,7 +65,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    position: relative; 
+    position: relative;
 }
 
 .login-form input {
@@ -58,13 +73,13 @@ h1 {
     font-size: 1rem;
     border: none;
     border-radius: 10px;
-    background-color: rgba(81,78,195,255); 
-    color: white; /* Kolor tekstu ustawiony na czysty biały */
-    z-index: 1; /* Tekst jest przed tłem */
+    background-color: rgba(81,78,195,255);
+    color: white;
+    z-index: 1;
 }
 
 .login-form input::placeholder {
-    color: white; /* Kolor tekstu w placeholderze na biały */
+    color: white;
 }
 
 .login-button {
@@ -84,7 +99,7 @@ h1 {
 
 .register-link {
     color: #fff;
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .register-button {
