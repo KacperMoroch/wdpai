@@ -16,11 +16,16 @@
     <div class="overlay">
         <div class="login-container">
             <h1>ZALOGUJ SIĘ</h1>
-            <form class="login-form" action="/dashboard" method="POST">
-                <input type="text" placeholder="Adres e-mail/numer telefonu" required>
-                <input type="password" placeholder="Hasło" required>
+            <form class="login-form" action="/login" method="POST">
+                <!-- Dodanie atrybutów name -->
+                <input type="text" name="email" placeholder="Adres e-mail/Nick" required>
+                <input type="password" name="password" placeholder="Hasło" required>
                 <button type="submit" class="login-button">ZALOGUJ SIĘ</button>
             </form>
+            <!-- Wyświetlanie błędów logowania -->
+            <?php if (isset($error)): ?>
+                <p class="error-message"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
             <p>Nie masz jeszcze konta? Zarejestruj się!</p>
             <button class="register-button" onclick="location.href='/register'">ZAREJESTRUJ SIĘ</button>
         </div>

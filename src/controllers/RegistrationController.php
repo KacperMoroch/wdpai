@@ -70,6 +70,8 @@ class RegistrationController extends AppController {
 
             // Szyfrowanie hasła
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+            // Trzeba w login dodac odhashowywanie hasel
+
 
             // Rozpoczynamy transakcję
             $conn->beginTransaction();
