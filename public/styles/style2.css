@@ -80,7 +80,7 @@ body {
     margin-top: -20px; /* Ustawienie wyższego położenia */
 }
 
-/* Dodano efekt hover dla pierwszego kafelka */
+/* Efekt hover dla pierwszego kafelka */
 .tile:first-of-type:hover {
     background-color: rgb(185, 185, 11); /* Kafelek robi się żółty */
 }
