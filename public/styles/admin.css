@@ -1,0 +1,111 @@
+/* Ogólne stylowanie strony */
+body {
+    margin: 0;
+    padding: 0;
+    font-size: calc(14px + 0.5vw);
+    font-family: Arial, sans-serif;
+    background: url('../assets/tlo_dashboard.jpg') top center/cover no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    padding: 20px;
+}
+
+/* Nagłówek */
+h1 {
+    font-size: 2.5rem;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 900;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 10px;
+    left: 66%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* Kontener dla tabeli */
+.table-container {
+    position: absolute;
+    top: 120px; 
+    right: 70px; 
+    width: 50%; 
+    max-height: 70vh; /* Maksymalna wysokość */
+    overflow-y: auto; /* Przewijanie w pionie */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+}
+
+/* Tabela użytkowników */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+thead th {
+    padding: 15px;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #d0ebff;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Przyciski w tabeli */
+button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #a71d2a;
+}
+
+/* Formularze */
+form {
+    display: inline;
+}
+
+input[type="hidden"] {
+    display: none;
+}
+
+/* Ikona domku */
+.home-icon {
+    position: absolute;
+    bottom: 100px;
+    left: 16%; 
+    width: 120px; 
+    height: 120px; 
+    background: url('/public/assets/domek.svg') center/cover no-repeat;
+    cursor: pointer;
+}
+

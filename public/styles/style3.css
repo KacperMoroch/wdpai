@@ -1,0 +1,178 @@
+
+/* Tło strony */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('../assets/tlo_gra_1.jpg') top center/cover no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start; /* Przesunięcie kontenerów na lewą stronę */
+    align-items: flex-start; /* Ustawienie elementów w górnej części */
+    height: 100vh; /* Cała wysokość widoku */
+    padding-left: 20px; 
+}
+/* Styl dla napisu na samej górze */
+.top-text {
+    font-size: 2.3rem;
+    color: black;
+    text-align: center;
+    position: absolute;
+    top: 40px;
+    left: 45%;
+    transform: translateX(-50%);
+    font-weight: 900;
+    z-index: 10;
+    line-height: 1.2;
+}
+/* Kontener dla całej gry */
+/* Kontener dla gry */
+.game {
+    display: flex;
+    flex-direction: column; /* Układ w pionie */
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 48%; /* Lewa część zajmuje 48% szerokości */
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 200px; /* Odstęp od napisu */
+    margin-right: 20px; /* Opcjonalnie: minimalny odstęp od prawej strony */
+    margin-left: 300px;
+}
+
+/* Nagłówek */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Formularz */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px; 
+    margin-left: 16px;
+}
+
+/* Pole tekstowe */
+input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 250px; /* Węższe pole tekstowe */
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Przycisk */
+button {
+    padding: 8px;
+    font-size: 1.1rem;
+    margin-left: 60px; 
+    width: 150px; /* Zmiana: stała szerokość przycisku */
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Styl dla wyników */
+#results {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Wyniki dla każdego kryterium */
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5); /* Ciemniejsze tło dla wyników */
+}
+
+/* Styl dla poprawnych wyników */
+.result-item.green {
+    background-color: #28a745;
+}
+
+/* Styl dla błędnych wyników */
+.result-item.red {
+    background-color: #dc3545;
+}
+
+/* Ikony wyników */
+.result-item img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+.game-over {
+    font-size: 1.5rem;
+    color: #28a745;  /* Zielony kolor */
+    margin-top: 20px;
+    font-weight: bold;
+}
+/* Kontener dla wyników */
+#results-container {
+    display: flex;
+    
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 20%; 
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 5%;
+    overflow-y: auto; /* Przewijanie w pionie */
+    max-height: 70vh; /* Maksymalna wysokość kontenera, aby wymusić przewijanie */
+    background-color: rgba(0, 0, 0, 0.5); /* Przyciemnione tło */
+    border-radius: 10px;
+    position: absolute;
+    top: 100px; 
+    right: 25%; 
+}
+/* Ikona domku w lewym górnym rogu */
+.home-icon {
+    position: absolute;
+    top: 50px;
+    left: 75px;
+    width: 80px; 
+    height: 80px; 
+    background-image: url('/public/assets/domek.svg'); /* Ścieżka do pliku z ikoną domku */
+    background-size: cover; /* Dopasowanie tła */
+    cursor: pointer; /* Kursor wskazujący na klikalność */
+    z-index: 1000; /* Zapewnienie, że ikona będzie zawsze widoczna na wierzchu */
+}
+
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000; /* Aby lista rozwijana była na wierzchu */
+}
+
+.ui-menu-item-wrapper {
+    padding: 10px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.ui-menu-item-wrapper:hover {
+    background-color: #007bff;
+    color: white;
+}

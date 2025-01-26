@@ -16,10 +16,20 @@ class AppController {
         }
         print $output;
     }
+    // Dodajemy metodę, która sprawdza, czy użytkownik jest zalogowany
+    public function checkLogin() {
+        if (!isset($_SESSION['user_id'])) {
+            // Jeśli nie ma sesji użytkownika, przekieruj do logowania
+            header("Location: /login");
+            exit();  // Zatrzymaj dalsze wykonywanie skryptu
+        }
+    }
     protected function isGet(): bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'GET';
     }
+
+    // tutaj mozna dodac zeby bylo "=== 'DELETE'"
 
     protected function isPost(): bool
     {
