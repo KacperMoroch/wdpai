@@ -2,163 +2,164 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../../DatabaseConnector.php';
-//require_once __DIR__.'/../models/User.php';
-//require_once __DIR__.'/../repository/UserRepository.php';
-class DashboardController extends AppController
-{
-    /*
-<?php
-
-require_once 'AppController.php';
-require_once __DIR__.'/../../DatabaseConnector.php';
 require_once __DIR__.'/../models/User.php';
 require_once __DIR__.'/../repository/UserRepository.php';
+require_once __DIR__.'/../repository/PlayerRepository.php';
 
-class DashboardController extends AppController {
-
-    private $userRepository;
-
-    public function __construct() {
+class DashboardController extends AppController
+{
+    private UserRepository $userRepository;
+    private PlayerRepository $playerRepository;
+    public function __construct()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $this->userRepository = new UserRepository();
+        $this->playerRepository = new PlayerRepository();
     }
-
     public function dashboard() {
-        $this->render("dashboard", ['name' => "Adrian", "users" => $this->userRepository->getUsers()]);
-    }
-
-    public function userEndpoint()
-    {
-    // bylo na zajeciach 16.01
-    //trzeba sobie zserializowac i dodac json'a
-    }
-
-    public function deleteUserEndpoint()
-    {
-    //bylo na zajeciach 16.01
-    }
-
-    public function addUser() {
-
-        if($this->isPost()) {
-            // TODO $_POST["name"], $_POST["email"]
-            
-            var_dump($_POST);
-            $this->userRepository->addUser(
-                new User(
-                    $_POST["name"],
-                    $_POST["email"],
-                    //... itd
-                )
-            );
-            $this->render("dashboard", ['name' => "Adrian", "users" => $this->userRepository->getUsers()]);
-        }
-
-        $this->render("add-user");
-    }
-}
 
 
-    */
-    public function dashboard() {
-        // Rozpocznij sesję
-        // Inicjalizowanie sesji, jeśli nie zostało to zrobione wcześniej
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // Sprawdź, czy użytkownik jest zalogowany
-        if (!isset($_SESSION['user_id'])) {
-            // Zamiast echo, zapisz komunikat w sesji lub przekieruj
-            $_SESSION['error_message'] = "Nie jesteś zalogowany!";
+        $userId = $this->getLoggedUserId();
+        if (!$userId) {
             header("Location: /login");
-            exit(); // Zatrzymuje dalsze wykonywanie skryptu
+            exit();
         }
 
-        // Jeśli użytkownik jest zalogowany, wyświetl dashboard
-        /*echo "Witaj na dashboardzie, użytkowniku o ID: " . $_SESSION['user_id'];*/
-
-        $this->checkLogin();
-        $connector = new DatabaseConnector();
-        $stmt = $connector->connect()->prepare('SELECT * FROM public.user_account');
-        $stmt->execute();
-
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $users = $this->userRepository->getAllUsers();
 
 
-        // TODO return object, you can yse FETCH_CLASS to avoid iterator wit foreach
-        /*
-        #usersResponse = []
-        foreach($users as $user) {
-            $usersResponse[] = new User(
-                $user['id'],
-                $user['email'],
-                $user['name'],
-                $user['surname'],
-                $user['avatar_url']
-            );
-        }
-        
-        */
-        $this->render("dashboard", ['name' => "Adrian", "users" => $users]);
+        $this->render("dashboard", ['name' => "Kacper", "users" => $users]);
     }
-
-
     public function logout() {
-        // Rozpocznij sesję, jeśli jeszcze nie została rozpoczęta
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
     
-        // Zniszcz wszystkie dane sesji
+        // Niszczymy wszystkie dane sesji
         session_unset(); // Usuń zmienne sesji
         session_destroy(); // Zniszcz sesję
     
-        // Przekieruj użytkownika na stronę logowania
+        // Przekierowujemy użytkownika na stronę logowania
         header("Location: /login");
         exit(); // Zatrzymuje dalsze wykonywanie skryptu
     }
 
     public function profile() {
-        // Rozpocznij sesję, jeśli jeszcze nie została rozpoczęta
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-    
-        // Sprawdź, czy użytkownik jest zalogowany
-        if (!isset($_SESSION['user_id'])) {
+        $userId = $this->getLoggedUserId();
+        if (!$userId) {
             header("Location: /login");
             exit();
         }
     
-        $userId = $_SESSION['user_id'];
-        $connector = new DatabaseConnector();
-        $db = $connector->connect();
-    
-        // Pobierz dane użytkownika
-        $stmt = $db->prepare('SELECT login, created_at FROM user_account WHERE id_user = :userId');
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $this->userRepository->getUserById($userId);
     
         if (!$user) {
             die("Nie znaleziono użytkownika.");
         }
     
-        // Oblicz liczbę punktów
-        $stmt = $db->prepare('SELECT COUNT(*) AS correct_guesses FROM user_guess_log WHERE id_user = :userId AND guessed_correctly = true');
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $points = $result['correct_guesses'] * 100;
+        // Liczymy punkty z dwóch tabel
+        $pointsFromUserGuessLog = $this->userRepository->countPointsFromUserGuessLog($userId);
+        $pointsFromUserGuessLogTransfer = $this->userRepository->countPointsFromUserGuessLogTransfer($userId);
     
-        // Przekaż dane do widoku
+        // Łączna liczba punktów
+        $totalPoints = $pointsFromUserGuessLog + $pointsFromUserGuessLogTransfer;
+    
+        // Przekzujemy dane do widoku
         $this->render('profile', [
             'user' => $user,
-            'points' => $points
+            'pointsFromUserGuessLog' => $pointsFromUserGuessLog,
+            'pointsFromUserGuessLogTransfer' => $pointsFromUserGuessLogTransfer,
+            'totalPoints' => $totalPoints
         ]);
     }
+    public function settings($data = []) {
+
     
+        $userId = $this->getLoggedUserId();
+        if (!$userId) {
+            header("Location: /login");
+            exit();
+        }
 
+        $user = $this->userRepository->getUserSettings($userId);
+    
+        // Nadpisz dane, jeśli są przekazane w $data
+        if (isset($data['user'])) {
+            $user = array_merge($user, $data['user']);
+        }
+    
+        $this->render('settings', array_merge($data, ['user' => $user]));
+    }
+    public function deleteAccount() {
 
+    
+        $userId = $this->getLoggedUserId();
+        if (!$userId) {
+            header("Location: /login");
+            exit();
+        }
+        if ($this->userRepository->deleteUser($userId)) {
+            session_unset();
+            session_destroy();
+            header("Location: /login");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Wystąpił błąd podczas usuwania konta.';
+            header("Location: /settings");
+            exit();
+        }
+    }
+    public function updateAccount() {
+
+        $userId = $this->getLoggedUserId();
+        if (!$userId) {
+            header("Location: /login");
+            exit();
+        }
+        $connector = new DatabaseConnector();
+        $db = $connector->connect();
+    
+        $newLogin = $_POST['login'];
+        $newEmail = $_POST['email'];
+    
+        // Walidacja danych
+        if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+            return $this->settings(['error' => 'Podany e-mail jest niepoprawny!']);
+        }
+    
+        if (strlen($newLogin) < 3) {
+            return $this->settings(['error' => 'Login musi mieć co najmniej 3 znaki!']);
+        }
+    
+        try {
+            // Sprawdzamy, czy login już istnieje
+            $stmt = $db->prepare('SELECT COUNT(*) FROM public.user_account WHERE login = :login AND id_user != :userId');
+            $stmt->execute(['login' => $newLogin, 'userId' => $userId]);
+            if ($stmt->fetchColumn() > 0) {
+                return $this->settings(['error' => 'Podany login jest już zajęty!']);
+            }
+    
+            // Sprawdzamy, czy e-mail już istnieje
+            $stmt = $db->prepare('SELECT COUNT(*) FROM public.user_account WHERE email = :email AND id_user != :userId');
+            $stmt->execute(['email' => $newEmail, 'userId' => $userId]);
+            if ($stmt->fetchColumn() > 0) {
+                return $this->settings(['error' => 'Podany e-mail jest już zajęty!']);
+            }
+    
+            // Aktualizacja danych w bazie
+            $stmt = $db->prepare('UPDATE public.user_account SET login = :login, email = :email WHERE id_user = :userId');
+            $stmt->execute([
+                'login' => $newLogin,
+                'email' => $newEmail,
+                'userId' => $userId
+            ]);
+    
+            return $this->render("settings", ['success' => 'Dane zostały pomyślnie zaktualizowane!', 'user' => ['login' => $newLogin, 'email' => $newEmail]]);
+        } catch (Exception $e) {
+            return $this->settings(['error' => 'Wystąpił błąd podczas aktualizacji danych!']);
+        }
+    }
+    private function getLoggedUserId(): ?int {
+        return $_SESSION['user_id'] ?? null;
+    }
 
 }

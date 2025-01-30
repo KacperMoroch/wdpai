@@ -5,6 +5,8 @@ require_once 'src/controllers/SecurityController.php';
 require_once 'src/controllers/RegistrationController.php';  
 require_once 'src/controllers/PlayerController.php';
 require_once 'src/controllers/AdminController.php';
+require_once 'src/controllers/TransferController.php';
+
 
 class Router {
   public static function run ($url) {
@@ -36,8 +38,8 @@ class Router {
         $controller = new PlayerController();
         $action = "getPlayers";
     }elseif ($action === "logout") {
-        $controller = new DashboardController(); // Wylogowywanie w DashboardController
-        $action = "logout"; // Wywołaj metodę logout
+        $controller = new DashboardController(); 
+        $action = "logout";
     } elseif ($action === "profile") {
         $controller = new DashboardController();
         $action = "profile";
@@ -47,7 +49,23 @@ class Router {
     } elseif ($action === "deleteUser") {
         $controller = new AdminController();
         $action = "deleteUser";
+    }elseif ($action === "settings") {
+        $controller = new DashboardController();
+        $action = "settings";
+    } elseif ($action === "deleteAccount") {
+        $controller = new DashboardController();
+        $action = "deleteAccount";
+    }elseif ($action === "updateAccount") {
+        $controller = new DashboardController();
+        $controller->updateAccount();
+    }elseif ($action === "start") {
+        $controller = new TransferController();
+        $action = "start";
+    } elseif ($action === "guess") {
+        $controller = new TransferController();
+        $action = "guess";
     }
+
     else {
         die("404 Not Found");
     }

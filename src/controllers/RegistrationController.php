@@ -36,7 +36,6 @@ class RegistrationController extends AppController {
             return $this->render("register", ['error' => 'Hasła nie pasują do siebie!']);
         }
 
-        // Połączenie z bazą danych
         $db = new DatabaseConnector();
         $conn = $db->connect();
 
@@ -70,7 +69,6 @@ class RegistrationController extends AppController {
 
             // Szyfrowanie hasła
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-            // Trzeba w login dodac odhashowywanie hasel
 
 
             // Rozpoczynamy transakcję
@@ -100,11 +98,11 @@ class RegistrationController extends AppController {
             $stmt = $conn->prepare('INSERT INTO public.user_account (id_user_details, id_role, email, login, password, salt, created_at) VALUES (:id_user_details, :id_role, :email, :login, :password, :salt, CURRENT_TIMESTAMP)');
             $stmt->execute([
                 'id_user_details' => $id_user_details,
-                'id_role' => 1, // Domyślnie przypisujemy rolę (np. użytkownik/user)
+                'id_role' => 1, // Domyślnie przypisujemy rolę (User)
                 'email' => $email,
                 'login' => $nickname,
                 'password' => $hashed_password,
-                'salt' => null // Salt jest nieużywany, ale możesz to zmienić
+                'salt' => null 
             ]);
 
             // Zatwierdzenie transakcji

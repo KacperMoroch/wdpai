@@ -7,6 +7,35 @@
     <link rel="stylesheet" href="public/styles/admin.css">
 </head>
 <body>
+        <!-- Lewy panel -->
+        <aside class="left-panel">
+        <ul>
+            <li>
+                <a href="/profile" style="text-decoration: none; color: inherit;">
+                    <img src="/public/assets/ludek.png" alt="Ikona użytkownika">
+                    <span>Twój profil</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin" style="text-decoration: none; color: inherit;">
+                    <img src="/public/assets/admin.svg" alt="Ikona dodawania znajomego">
+                    <span>Panel Administratora</span>
+                </a>
+            </li>
+            <li>
+                <a href="/settings" style="text-decoration: none; color: inherit;">
+                    <img src="/public/assets/trybik.png" alt="Ikona ustawień">
+                    <span>Ustawienia</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout" style="text-decoration: none; color: inherit;">
+                    <img src="/public/assets/wyjscie.png" alt="Ikona wylogowania">
+                    <span>Wyloguj się</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
     <div class="home-icon" onclick="window.location.href='/dashboard';"></div>
     <h1>Panel Administratora</h1>
     <div class="table-container">

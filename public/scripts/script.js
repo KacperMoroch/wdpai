@@ -1,4 +1,4 @@
-// public/scripts/script.js
+console.log("Script loaded!");
 
 // Funkcja do otwierania i zamykania modalnego okienka
 const kafeleIcon = document.getElementById('kafeleIcon');
@@ -31,26 +31,24 @@ $(document).ready(function () {
             try {
                 const res = await fetch(`/getPlayers?query=${request.term}`);
                 const data = await res.json();
-                response(data.players); // API zwraca { players: ["Gracz 1", "Gracz 2"] }
+                response(data.players || []); // API zwraca { players: ["Gracz 1", "Gracz 2"] }
             } catch (error) {
                 console.error("Błąd w autouzupełnianiu:", error);
             }
         },
-        minLength: 2, // Minimalna liczba znaków przed wyświetleniem propozycji
+        minLength: 1, // Minimalna liczba znaków przed wyświetleniem propozycji
         delay: 300, // Opóźnienie w milisekundach
     });
 });
+
+
+
 
 // Obsługa formularza zgadywania
 document.getElementById('guessForm').addEventListener('submit', async (e) => {
     e.preventDefault();  // Zapobiega domyślnemu wysyłaniu formularza
 
-    // Sprawdzanie, czy gra jest zakończona (czy w sesji jest ustawione 'game_over')
-    const gameOver = JSON.parse(document.getElementById('gameOverState').textContent || 'false');
-    if (gameOver) {
-        alert("Zgadłeś piłkarza! Gra zakończona.");
-        return;  // Nie pozwalamy na dalsze zgadywanie
-    }
+
 
     const playerName = e.target.player_name.value.trim();
 
@@ -73,6 +71,13 @@ document.getElementById('guessForm').addEventListener('submit', async (e) => {
         const result = await response.json();
         const resultsDiv = document.getElementById('results');
 
+
+        // Zawsze aktualizujemy liczbę prób, jeśli została zwrócona przez backend
+        if (result.remaining_attempts !== undefined) {
+            document.getElementById('remainingAttempts').textContent = result.remaining_attempts;
+        }
+
+
         if (result.error) {
             // Jeśli błąd to użytkownik zgadywał już dzisiaj
             if (result.error.includes('Dzisiaj już próbowałeś')) {
@@ -85,7 +90,16 @@ document.getElementById('guessForm').addEventListener('submit', async (e) => {
             return;
         }
 
+
+        // Update remaining attempts
+        const remainingAttempts = result.remaining_attempts;
+        document.getElementById('remainingAttempts').textContent = remainingAttempts;
+
+
+
+
         let resultHtml = `
+            <div class="player-name">${playerName}</div>
             <div class="result-item ${result.matches.country ? 'green' : 'red'}">
                 Kraj: ${result.country || 'Brak danych'}
             </div>
@@ -100,11 +114,14 @@ document.getElementById('guessForm').addEventListener('submit', async (e) => {
             </div>
             <div class="result-item ${result.matches.age ? 'green' : 'red'}">
                 Wiek: ${result.age || 'Brak danych'}
+                ${result.age_comparison === 'up' ? '↑' : (result.age_comparison === 'down' ? '↓' : '')}
             </div>
             <div class="result-item ${result.matches.shirt_number ? 'green' : 'red'}">
                 Numer: ${result.shirt_number || 'Brak danych'}
+                ${result.shirt_number_comparison === 'up' ? '↑' : (result.shirt_number_comparison === 'down' ? '↓' : '')}
             </div>
         `;
+
 
         if (result.game_over) {
             resultHtml += "<div class='game-over'>Brawo! Zgadłeś piłkarza!</div>";
@@ -123,4 +140,70 @@ document.getElementById('guessForm').addEventListener('submit', async (e) => {
     }
 
     e.target.reset();
+});
+
+
+
+function showMessage(message, type = 'error') {
+    const messageContainer = document.getElementById('message-container');
+    messageContainer.textContent = message;
+
+    // Ustawiamy odpowiednią klasę dla typu wiadomości
+    messageContainer.className = `message ${type}`;
+    
+    // Pokaż wiadomość
+    messageContainer.style.display = 'block';
+    messageContainer.classList.remove('hidden');
+    messageContainer.style.opacity = '1';
+    messageContainer.style.transform = 'translateX(-50%)';
+
+    // Ukryj wiadomość po 3 sekundach
+    setTimeout(() => {
+        messageContainer.style.opacity = '0';
+        messageContainer.style.transform = 'translateX(-50%) translateY(-10px)';
+        setTimeout(() => {
+            messageContainer.style.display = 'none';
+        }, 500); // Czas na zakończenie animacji
+    }, 3000);
+}
+
+document.addEventListener("mousemove", (e) => {
+    let cursor = document.querySelector(".custom-cursor");
+    if (!cursor) {
+        cursor = document.createElement("div");
+        cursor.classList.add("custom-cursor");
+        document.body.appendChild(cursor);
+    }
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+});
+
+document.addEventListener("mousemove", (e) => {
+    let trail = document.createElement("div");
+    trail.classList.add("cursor-trail");
+    document.body.appendChild(trail);
+    
+    trail.style.left = `${e.clientX}px`;
+    trail.style.top = `${e.clientY}px`;
+
+    setTimeout(() => {
+        trail.remove();
+    }, 500);
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Script1 działa!");
+
+    let cursor = document.querySelector(".custom-cursor");
+    if (!cursor) {
+        cursor = document.createElement("div");
+        cursor.classList.add("custom-cursor");
+        document.body.appendChild(cursor);
+    }
+
+    document.addEventListener("mousemove", (e) => {
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+
+    console.log("Kursor został dodany do dokumentu.");
 });

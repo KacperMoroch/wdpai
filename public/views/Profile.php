@@ -17,12 +17,16 @@
                 </a>
             </li>
             <li>
-                <img src="/public/assets/ludek-plus.png" alt="Ikona dodawania znajomego">
-                <span>Dodaj znajomego</span>
+                <a href="/admin" style="text-decoration: none; color: inherit;">
+                    <img src="/public/assets/admin.svg" alt="Ikona dodawania znajomego">
+                    <span>Panel Administratora</span>
+                </a>
             </li>
             <li>
-                <img src="/public/assets/trybik.png" alt="Ikona ustawień">
-                <span>Ustawienia</span>
+                <a href="/settings" style="text-decoration: none; color: inherit;">
+                    <img src="/public/assets/trybik.png" alt="Ikona ustawień">
+                    <span>Ustawienia</span>
+                </a>
             </li>
             <li>
                 <a href="/logout" style="text-decoration: none; color: inherit;">
@@ -36,22 +40,64 @@
     <!-- Główne okno -->
     <main class="profile-container">
         <section class="profile-info">
-            <h2>Witaj, <?= htmlspecialchars($user['login']) ?>!</h2>
-            <p>Konto założone: <strong><?= date('d-m-Y', strtotime($user['created_at'])) ?></strong></p>
+            <h2>Witaj, <?= htmlspecialchars($user->getLogin()) ?>!</h2>
+            <?php if ($user->getCreatedAt()): ?>
+                <p>Konto założone: <strong><?= $user->getCreatedAt()->format('d-m-Y') ?></strong></p>
+            <?php else: ?>
+                <p>Konto założone: <strong>Brak danych</strong></p>
+            <?php endif; ?>
         </section>
 
         <section class="profile-points">
-            <h3>Twoje punkty: <span><?= htmlspecialchars($points) ?></span></h3>
+                <h3>Twoje punkty: <span><?= htmlspecialchars($totalPoints) ?></span> 
+                    (<?= htmlspecialchars($pointsFromUserGuessLog) ?> za Zgadnij piłkarza, 
+                    <?= htmlspecialchars($pointsFromUserGuessLogTransfer) ?> za Zgadnij transfer)
+                </h3>
 
-            <?php if ($points >= 500): ?>
-                <div class="achievement">
-                    <h4>Osiągnięcia:</h4>
-                    <img src="/public/assets/quest1.svg" alt="Osiągnięcie" class="achievement-badge" id="quest1" />
-                    <div class="tooltip">Osiągnięcie za 5 dobrych odpowiedzi w trybie 'Zgadnij piłkarza'</div>
+                <h3>Osiągnięcia:</h3> <!-- Dodano nagłówek nad osiągnięciami -->
+
+                <div class="achievements">
+                    <!-- Osiągnięcia za Zgadnij piłkarza -->
+                    <?php if ($pointsFromUserGuessLog >= 100 && $pointsFromUserGuessLog <= 200): ?>
+                        <div class="achievement">
+                            <img src="/public/assets/quest1.svg" alt="Osiągnięcie" class="achievement-badge" id="quest1" />
+                            <div class="tooltip">Osiągnięcie za 100 punktów w trybie 'Zgadnij piłkarza'</div>
+                        </div>
+                    <?php elseif ($pointsFromUserGuessLog >= 300 && $pointsFromUserGuessLog <= 400): ?>
+                        <div class="achievement">
+                            <img src="/public/assets/quest12.svg" alt="Osiągnięcie" class="achievement-badge" id="quest12" />
+                            <div class="tooltip">Osiągnięcie za 300 punktów w trybie 'Zgadnij piłkarza'</div>
+                        </div>
+                    <?php elseif ($pointsFromUserGuessLog >= 500): ?>
+                        <div class="achievement">
+                            <img src="/public/assets/quest123.svg" alt="Osiągnięcie" class="achievement-badge" id="quest123" />
+                            <div class="tooltip">Osiągnięcie za 500 punktów w trybie 'Zgadnij piłkarza'</div>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Osiągnięcia za Zgadnij transfer -->
+                    <?php if ($pointsFromUserGuessLogTransfer >= 100 && $pointsFromUserGuessLogTransfer <= 200): ?>
+                        <div class="achievement">
+                            <img src="/public/assets/quest2.svg" alt="Osiągnięcie" class="achievement-badge" id="quest2" />
+                            <div class="tooltip">Osiągnięcie za 100 punktów w trybie 'Zgadnij transfer'</div>
+                        </div>
+                    <?php elseif ($pointsFromUserGuessLogTransfer >= 300 && $pointsFromUserGuessLogTransfer <= 400): ?>
+                        <div class="achievement">
+                            <img src="/public/assets/quest23.svg" alt="Osiągnięcie" class="achievement-badge" id="quest23" />
+                            <div class="tooltip">Osiągnięcie za 300 punktów w trybie 'Zgadnij transfer'</div>
+                        </div>
+                    <?php elseif ($pointsFromUserGuessLogTransfer >= 500): ?>
+                        <div class="achievement">
+                            <img src="/public/assets/quest234.svg" alt="Osiągnięcie" class="achievement-badge" id="quest234" />
+                            <div class="tooltip">Osiągnięcie za 500 punktów w trybie 'Zgadnij transfer'</div>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Komunikat, jeśli brak osiągnięć -->
+                    <?php if ($pointsFromUserGuessLog < 100 && $pointsFromUserGuessLogTransfer < 100): ?>
+                        <p class="no-achievement">Brak osiągnięć!</p>
+                    <?php endif; ?>
                 </div>
-            <?php else: ?>
-            <p class="no-achievement">Brak osiągnięć!</p>
-            <?php endif; ?>
         </section>
     </main>
 

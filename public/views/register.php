@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejestracja</title>
-    <link rel="stylesheet" href="public/styles/style.css">
+    <link rel="stylesheet" href="public/styles/login.css">
 </head>
 <body class="register-page">
     <div class="overlay">
         <div class="login-container">
             <h1>ZAREJESTRUJ SIĘ</h1>
-            <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
+            <?php if (isset($error)) { echo "<p class='error-message'>$error</p>"; } ?>
             <form action="/register" method="POST" class="login-form">
                 <input type="email" name="email" placeholder="Adres e-mail" required>
                 <input type="tel" name="phone" placeholder="Numer telefonu" required>

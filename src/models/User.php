@@ -1,19 +1,29 @@
 <?php
 class User
 {
-    private $id;
-    private $email;
-    private $name;
-    private ?string $surname; // Typ nullable string
-    private $avatarUrl;
-    private $password;
-    private $roleId;
-    private $login; 
-    private $roleName;
+    private int $id;
+    private string $email;
+    private ?string $name;
+    private ?string $surname; 
+    private ?string $avatarUrl;
+    private ?string $password;
+    private ?int $roleId;
+    private ?string $login; 
+    private ?string $roleName;
+    private ?DateTime $createdAt;
 
-
-    public function __construct($id, $email, $name, ?string $surname, $avatarUrl = null, $password = null, $roleId = null, $login = null, $roleName = null)
-    {
+    public function __construct(
+        int $id, 
+        string $email, 
+        ?string $name, 
+        ?string $surname, 
+        ?string $avatarUrl = null, 
+        ?string $password = null, 
+        ?int $roleId = null, 
+        ?string $login = null, 
+        ?string $roleName = null, 
+        ?string $createdAt = null
+    ) {
         $this->id = $id;
         $this->email = $email;
         $this->name = $name;
@@ -23,6 +33,7 @@ class User
         $this->roleId = $roleId;
         $this->login = $login;
         $this->roleName = $roleName;
+        $this->createdAt = $createdAt ? new DateTime($createdAt) : null; 
     }
 
     public function getId()
@@ -80,5 +91,9 @@ class User
     public function setRoleName(?string $roleName)
     {
         $this->roleName = $roleName;
+    }
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

@@ -8,7 +8,6 @@ class SecurityController extends AppController
 
     public function __construct()
     {
-        // Załaduj repozytorium użytkownika
         $this->userRepository = new UserRepository();
     }
 
@@ -17,33 +16,28 @@ class SecurityController extends AppController
         // Włączenie buforowania wyjścia
         ob_start();
 
-        // Rozpocznij sesję na początku
+        // Rozpoczynamy sesję na początku
         session_start();
 
-        // Sprawdź, czy użytkownik jest już zalogowany
+        // Sprawdzamy, czy użytkownik jest już zalogowany
         if (isset($_SESSION['user_id'])) {
-            // Debugowanie sesji
-            var_dump($_SESSION);  // Zobacz, czy sesja jest ustawiona
-            exit();  // Zatrzymuje dalsze wykonywanie kodu
-
-            // Jeśli użytkownik jest już zalogowany, przekieruj na dashboard
             header("Location: /dashboard");
             exit();  // Zakończ wykonywanie skryptu
         }
 
-        // Sprawdź, czy to żądanie GET - jeśli tak, wyświetl formularz logowania
+        // Sprawdzamy, czy to żądanie GET - jeśli tak, wyświetl formularz logowania
         if ($this->isGet()) {
             return $this->render("login");
         }
 
-        // Pobierz dane z formularza
+        // Pobieramy dane z formularza
         $emailOrLogin = $_POST['email']; // Może być email lub login
         $password = $_POST['password'];
 
-        // Pobierz użytkownika z bazy danych
+        // Pobieramy użytkownika z bazy danych
         $user = $this->userRepository->getUserByEmailOrLogin($emailOrLogin);
 
-        // Upewnij się, że użytkownik istnieje
+        // Upewniamy się, że użytkownik istnieje
         if (!$user) {
             return $this->render("login", ['error' => 'Użytkownik nie został znaleziony.']);
         }
@@ -55,7 +49,7 @@ class SecurityController extends AppController
 
         // Jeśli logowanie się powiedzie, ustaw dane sesji
         $_SESSION['user_id'] = $user->getId();
-        $_SESSION['role_id'] = $user->getRoleId(); // Zakładamy, że User ma metodę getRoleId()
+        $_SESSION['role_id'] = $user->getRoleId(); 
 
         if ($user->getRoleId() == 2) { // 2 = Admin
             header("Location: /admin");
@@ -63,12 +57,9 @@ class SecurityController extends AppController
             header("Location: /dashboard");
         }
 
-        // Przekierowanie na stronę dashboard po poprawnym logowaniu
-        /*header("Location: /dashboard");*/
-
         // Spuszczenie buforowania i wysłanie nagłówków
         ob_end_flush(); // Zakończenie buforowania wyjścia
 
-        exit();  // Pamiętaj, aby zakończyć skrypt po przekierowaniu
+        exit(); 
     }
 }

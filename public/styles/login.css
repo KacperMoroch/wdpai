@@ -53,12 +53,13 @@ body.register-page .login-container {
 
 h1 {
     font-size: 2.5rem;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-bottom: 1px;
     background: none;
     display: inline-block;
     padding: 10px 20px;
     border-radius: 10px;
+    white-space: nowrap;
 }
 
 .login-form {
@@ -105,7 +106,7 @@ h1 {
 .register-button {
     padding: 10px;
     font-size: 1.2rem;
-    margin-top: 15px;
+    margin-top: 1px;
     background-color: #26d027;
     color: white;
     border: none;
@@ -118,64 +119,69 @@ h1 {
     background-color: #228b22;
 }
 
-/* Widok mobilny poziomy */
+.error-message {
+    color: red;
+    font-size: 1rem;
+    margin-top: 1px;
+}
 @media (max-width: 852px) and (max-height: 393px) {
 
     /* Ustawienie kontenera na ekranie mobilnym poziomo */
     .overlay {
         display: flex;
-        justify-content: center; /* Wyśrodkowanie formularza poziomo */
-        align-items: flex-start; /* Ustawienie formularza bliżej góry */
-        width: 100%; /* Pełna szerokość */
-        height: 100%; /* Pełna wysokość */
+        justify-content: center; 
+        align-items: flex-start; 
+        width: 100%; 
+        height: 100%; 
     }
 
     /* Formularz po lewej stronie ekranu */
     .login-container {
-        margin-top: 0 px; /* Zmniejszenie marginesu, aby kontener był wyżej */
+        margin-top: 0 px; 
         margin-bottom: 10 px;
-        padding: 15px; /* Zmniejszenie paddingu formularza */
-        width: 50%; /* Zajmuje połowę szerokości ekranu */
-        max-width: none; /* Usunięcie maksymalnej szerokości */
-        text-align: center; /* Wyśrodkowanie tekstu */
+        padding: 15px; 
+        width: 50%; 
+        max-width: none; 
+        text-align: center; 
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* Wyrównanie formularza do góry */
+        justify-content: flex-start; 
     }
 
     /* Ustawienie h1 - tytuł formularza */
     h1 {
-        font-size: 1.25rem; /* Zmniejszenie rozmiaru nagłówka */
-        margin-top: 0px; /* Zmniejszenie marginesu u góry */
-        margin-bottom: 0px; /* Zmniejszenie marginesu na dole */
+        font-size: 1.25rem; 
+        margin-top: 0px; 
+        margin-bottom: 0px; 
     }
 
     /* Formularz */
     .login-form {
-        gap: 2px; /* Zmniejszenie odstępu między polami formularza */
+        gap: 2px; 
     }
 
     .login-form input {
-        font-size: 0.9rem; /* Zmniejszenie rozmiaru czcionki w polach formularza */
-        padding: 8px; /* Zmniejszenie paddingu w polach formularza */
+        font-size: 0.9rem; 
+        padding: 8px; 
+        height: 10px;
     }
 
     .login-button, .register-button {
-        font-size: 0.5rem; /* Zmniejszenie rozmiaru czcionki na przyciskach */
-        padding: 10px; /* Zmniejszenie paddingu w przyciskach */
-        margin-top: 0px; /* Zmniejszenie marginesu między przyciskami */
-        width: 300px; /* Szerokość przycisków */
+        font-size: 0.5rem; 
+        padding: 10px; 
+        margin-top: 0px; 
+        width: 300px; 
     }
 
     .login-button, .register-button {
-        font-size: 1rem; /* Rozmiar czcionki przycisków */
-        padding: 10px; /* Padding przycisków */
-        margin-top: 2px; /* Margines między przyciskami */
-        width: 100%; /* Przyciski zajmują pełną szerokość kontenera */
+        font-size: 1rem; 
+        padding: 10px; 
+        margin-top: 2px; 
+        width: 100%; 
     }
 
     .register-button {
-        margin-top: 0px; /* Przestrzeń między przyciskiem rejestracji a innymi elementami */
+        margin-top: 0px; 
     }
     
     body.login-page .login-container {

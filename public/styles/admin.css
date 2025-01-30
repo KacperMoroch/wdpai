@@ -10,9 +10,44 @@ body {
     justify-content: flex-start;
     align-items: flex-start;
 
+}
+/* Lewa sekcja */
+.left-panel {
+    top:4%;
+    width: 50%;
+    background-color: transparent;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    height: 100%;
+    justify-content: flex-end;
 }
 
+.left-panel ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.left-panel li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px; 
+}
+
+.left-panel img {
+    width: 40px; 
+    height: 40px;
+    margin-right: 10px;
+}
+
+.left-panel span {
+    font-size: 1.2em; 
+}
 /* Nagłówek */
 h1 {
     font-size: 2.5rem;
@@ -101,11 +136,90 @@ input[type="hidden"] {
 /* Ikona domku */
 .home-icon {
     position: absolute;
-    bottom: 100px;
-    left: 16%; 
-    width: 120px; 
-    height: 120px; 
+    bottom: 20px;
+    left: 30%; 
+    width: 80px; 
+    height: 80px;
     background: url('/public/assets/domek.svg') center/cover no-repeat;
     cursor: pointer;
 }
 
+@media (max-width: 852px) and (orientation: landscape) {
+    .left-panel {
+        display: none; 
+    }
+    body {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        top: 5px;
+        left: 65%;
+    }
+
+    .table-container {
+        top: 80px;
+        right: 0;
+        width: 59%;
+        max-height: 50vh;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+
+    .home-icon {
+        width: 70px; 
+        height: 70px;
+        bottom: 10px;
+        left: 10px;
+    }
+}
+
+
+@media (max-width: 852px) and (orientation: portrait) {
+    .left-panel {
+        display: none; 
+    }
+    body {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        background: url('../assets/tlo_mobilne.jpg');
+    }
+
+    h1 {
+        font-size: 1.7rem;
+        top: 205px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .table-container {
+        top: 300px;
+        width: 100%;
+        max-height: 50vh;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+    }
+
+    .home-icon {
+        top: 10px;
+        left: 10px;
+        width: 70px;
+        height: 70px;
+    }
+}

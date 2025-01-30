@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/public/styles/style2.css">
+    <link rel="stylesheet" href="/public/styles/dashboard.css">
     <script src="/public/scripts/script.js" defer></script> <!-- Załadowanie zewnętrznego skryptu -->
 </head>
 <body>
@@ -19,14 +19,17 @@
                     </a>
                 </li>
                 <li>
-                    <img src="/public/assets/ludek-plus.png" alt="Ikona dodawania znajomego">
-                    <span>Dodaj znajomego</span>
+                    <a href="/admin" style="text-decoration: none; color: inherit;">
+                        <img src="/public/assets/admin.svg" alt="Ikona dodawania znajomego">
+                        <span>Panel Administratora</span>
+                    </a>
                 </li>
                 <li>
-                    <img src="/public/assets/trybik.png" alt="Ikona ustawień">
-                    <span>Ustawienia</span>
+                    <a href="/settings" style="text-decoration: none; color: inherit;">
+                        <img src="/public/assets/trybik.png" alt="Ikona ustawień">
+                        <span>Ustawienia</span>
+                    </a>
                 </li>
-                <!-- Link do strony logowania -->
                 <li>
                     <a href="/logout" style="text-decoration: none; color: inherit;">
                         <img src="/public/assets/wyjscie.png" alt="Ikona wylogowania">
@@ -47,19 +50,9 @@
                 </a>
             </div>
             <div class="tile">
-                <h2>Cytaty</h2>
-            </div>
-            <div class="tile">
-                <h2>Emotikony</h2>
-            </div>
-            <div class="tile">
-                <h2>Kariera</h2>
-            </div>
-            <div class="tile">
-                <h2>Momenty</h2>
-            </div>
-            <div class="tile">
-                <h2>Transfer</h2>
+                <a href="/start">
+                    <h2>Transfer</h2>
+                </a>
             </div>
         </main>
 
@@ -79,13 +72,17 @@
                         </a>
                     </li>
                     <li>
-                        <img src="/public/assets/ludek-plus.png" alt="Dodaj znajomego">
-                        <span>Dodaj znajomego</span>
+                        <a href="/admin" style="text-decoration: none; color: inherit;">
+                            <img src="/public/assets/admin.svg" alt="Ikona dodawania znajomego">
+                            <span>Panel Administratora</span>
+                        </a>
                     </li>
                     <li>
-                        <img src="/public/assets/trybik.png" alt="Ustawienia">
+                    <a href="/settings" style="text-decoration: none; color: inherit;">
+                        <img src="/public/assets/trybik.png" alt="Ikona ustawień">
                         <span>Ustawienia</span>
-                    </li>
+                    </a>
+                </li>
                     <li>
                         <a href="/logout" style="text-decoration: none; color: inherit;">
                             <img src="/public/assets/wyjscie.png" alt="Ikona wylogowania">

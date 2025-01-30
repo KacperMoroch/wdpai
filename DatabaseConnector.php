@@ -24,9 +24,6 @@ class DatabaseConnector {
                 $this->username,
                 $this->password
             );
-            //var_dump($conn);
-
-            // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
         }

@@ -16,7 +16,7 @@ class AdminController extends AppController
         session_start();
 
         if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 2) {
-            header("Location: /login");
+            header("Location: /dashboard");
             exit();
         }
 
@@ -29,7 +29,7 @@ class AdminController extends AppController
         session_start();
 
         if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 2) {
-            header("Location: /login");
+            header("Location: /dashboard");
             exit();
         }
 

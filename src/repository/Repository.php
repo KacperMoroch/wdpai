@@ -7,7 +7,6 @@ class Repository {
 
     public function __construct()
     {
-        // TODO DatabaseConnector should be singleton
         $this->database = new DatabaseConnector();
     }
 }
