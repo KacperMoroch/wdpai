@@ -23,8 +23,7 @@ body {
     z-index: 10;
     line-height: 1.2;
 }
-/* Kontener dla całej gry */
-
+/* Kontener dla całej gryy */
 .game {
     position:absolute;
     display: flex;
