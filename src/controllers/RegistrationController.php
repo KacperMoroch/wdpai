@@ -2,11 +2,13 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../../DatabaseConnector.php';
+require_once __DIR__.'/../models/User.php';
+require_once __DIR__ . '/../repository/UserRepository.php';
 
 class RegistrationController extends AppController {
     public function register() {
+        // Sprawdzamy, czy to zapytanie GET
         if ($this->isGet()) {
-            // Renderujemy stronę rejestracji
             return $this->render("register");
         }
 
@@ -36,92 +38,51 @@ class RegistrationController extends AppController {
             return $this->render("register", ['error' => 'Hasła nie pasują do siebie!']);
         }
 
-        $db = new DatabaseConnector();
-        $conn = $db->connect();
+        // Korzystamy z UserRepository
+        $userRepository = new UserRepository();
+
+        // Sprawdzamy, czy użytkownik o podanym emailu już istnieje
+        $existingEmailUser = $userRepository->getUserByEmailOrLogin($email);
+        if ($existingEmailUser) {
+            return $this->render("register", ['error' => 'Podany e-mail jest już zajęty!']);
+        }
+
+        // Sprawdzamy, czy użytkownik o podanym loginie już istnieje
+        $existingLoginUser = $userRepository->getUserByEmailOrLogin($nickname);
+        if ($existingLoginUser) {
+            return $this->render("register", ['error' => 'Podany login jest już zajęty!']);
+        }
+
+        // Szyfrowanie hasła
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+        // Tworzymy nowego użytkownika
+        $user = new User(
+            0, // ID jest generowane przez bazę danych
+            $email,
+            $nickname, // Tymczasowo nickname jako imię
+            'Nieznane', // Tymczasowo "Nieznane" jako nazwisko
+            null, // Avatar jest opcjonalny
+            $hashed_password,
+            1, // Domyślnie przypisujemy rolę "User" (1)
+            $nickname, // Nickname
+            'User', // Role name
+            null // CreatedAt ustawimy później
+        );
 
         try {
-            // Sprawdzanie, czy e-mail już istnieje
-            $stmt = $conn->prepare('SELECT COUNT(*) FROM public.user_account WHERE email = :email');
-            $stmt->execute(['email' => $email]);
-            $email_exists = $stmt->fetchColumn();
+            // Dodajemy użytkownika do bazy
+            $userRepository->addUser($user);
 
-            if ($email_exists > 0) {
-                return $this->render("register", ['error' => 'Podany e-mail jest już zajęty!']);
-            }
-
-            // Sprawdzanie, czy numer telefonu już istnieje
-            $stmt = $conn->prepare('SELECT COUNT(*) FROM public.user_details WHERE phone = :phone');
-            $stmt->execute(['phone' => $phone]);
-            $phone_exists = $stmt->fetchColumn();
-
-            if ($phone_exists > 0) {
-                return $this->render("register", ['error' => 'Podany numer telefonu jest już zajęty!']);
-            }
-
-            // Sprawdzanie, czy login (nickname) już istnieje
-            $stmt = $conn->prepare('SELECT COUNT(*) FROM public.user_account WHERE login = :nickname');
-            $stmt->execute(['nickname' => $nickname]);
-            $nickname_exists = $stmt->fetchColumn();
-
-            if ($nickname_exists > 0) {
-                return $this->render("register", ['error' => 'Podany nick (login) jest już zajęty!']);
-            }
-
-            // Szyfrowanie hasła
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-
-            // Rozpoczynamy transakcję
-            $conn->beginTransaction();
-
-            // Dodanie adresu
-            $stmt = $conn->prepare('INSERT INTO public.address (postal_code, street, locality, number) VALUES (:postal_code, :street, :locality, :number) RETURNING id_address');
-            $stmt->execute([
-                'postal_code' => '00000', // Tymczasowy kod
-                'street' => 'Nieznana',  // Tymczasowa ulica
-                'locality' => 'Nieznana', // Tymczasowa miejscowość
-                'number' => '0'           // Tymczasowy numer
-            ]);
-            $id_address = $stmt->fetch(PDO::FETCH_ASSOC)['id_address'];
-
-            // Dodanie szczegółów użytkownika
-            $stmt = $conn->prepare('INSERT INTO public.user_details (id_address, name, surname, phone) VALUES (:id_address, :name, :surname, :phone) RETURNING id_user_details');
-            $stmt->execute([
-                'id_address' => $id_address,
-                'name' => $nickname, // Tymczasowo jako imię
-                'surname' => 'Nieznane', // Tymczasowo jako nazwisko
-                'phone' => $phone
-            ]);
-            $id_user_details = $stmt->fetch(PDO::FETCH_ASSOC)['id_user_details'];
-
-            // Dodanie użytkownika
-            $stmt = $conn->prepare('INSERT INTO public.user_account (id_user_details, id_role, email, login, password, salt, created_at) VALUES (:id_user_details, :id_role, :email, :login, :password, :salt, CURRENT_TIMESTAMP)');
-            $stmt->execute([
-                'id_user_details' => $id_user_details,
-                'id_role' => 1, // Domyślnie przypisujemy rolę (User)
-                'email' => $email,
-                'login' => $nickname,
-                'password' => $hashed_password,
-                'salt' => null 
-            ]);
-
-            // Zatwierdzenie transakcji
-            $conn->commit();
-
-            // Przekierowanie po udanej rejestracji
+            // Przekierowujemy po udanej rejestracji
             header('Location: /login');
             exit();
         } catch (Exception $e) {
-            // Cofnięcie transakcji w razie błędu
-            $conn->rollBack();
-        
-            // Ścieżka do niestandardowego pliku logów
+            // Logujemy błąd
             $logFile = __DIR__ . '/../../logs/error_log.txt';
-        
-            // Zapis błędu do pliku
             file_put_contents($logFile, date('Y-m-d H:i:s') . " - " . $e->getMessage() . PHP_EOL, FILE_APPEND);
         
-            // Wyświetlenie ogólnego błędu użytkownikowi
+            // Wyświetlamy błąd użytkownikowi
             return $this->render("register", ['error' => 'Wystąpił błąd podczas rejestracji.']);
         }
     }

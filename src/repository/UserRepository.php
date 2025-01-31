@@ -31,18 +31,44 @@ class UserRepository extends Repository {
     
     public function addUser(User $user)
     {
-
-
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO user (email, password, id_user_details)
-            VALUES (?, ?, ?)
-        ');
-
-        $stmt->execute([
-            $user->getEmail(),
-            $user->getPassword(),
-            $this->getUserDetailsId($user)
-        ]);
+        $pdo = $this->database->connect();
+        $pdo->beginTransaction();
+    
+        try {
+            // Dodanie user_details, jeśli użytkownik ma imię i nazwisko
+            $userDetailsId = null;
+            if ($user->getName() || $user->getSurname()) {
+                $stmt = $pdo->prepare('
+                    INSERT INTO user_details (name, surname) 
+                    VALUES (:name, :surname) 
+                    RETURNING id_user_details
+                ');
+                $stmt->execute([
+                    'name' => $user->getName(),
+                    'surname' => $user->getSurname()
+                ]);
+                $userDetailsId = $stmt->fetchColumn();
+            }
+    
+            // Dodanie użytkownika do user_account
+            $stmt = $pdo->prepare('
+                INSERT INTO user_account (email, password, id_user_details, id_role, login, created_at)
+                VALUES (:email, :password, :id_user_details, :id_role, :login, CURRENT_TIMESTAMP)
+            ');
+    
+            $stmt->execute([
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword(),
+                'id_user_details' => $userDetailsId,
+                'id_role' => $user->getRoleId() ?? 1, // Domyślna rola to "User"
+                'login' => $user->getLogin()
+            ]);
+    
+            $pdo->commit();
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            throw $e; // Rzucenie wyjątku, jeśli coś poszło nie tak
+        }
     }
 
     public function getUserByEmailOrLogin(string $emailOrLogin): ?User
@@ -107,31 +133,31 @@ class UserRepository extends Repository {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
-            // Liczy punkty z tabeli user_guess_log
-            public function countPointsFromUserGuessLog(int $userId): int 
-            {
-                $stmt = $this->database->connect()->prepare('
-                    SELECT COUNT(*) AS correct_guesses FROM user_guess_log 
-                    WHERE id_user = :userId AND guessed_correctly = true
-                ');
-                $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-                $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                return (int)($result['correct_guesses'] ?? 0) * 100;
-            }
+    // Liczy punkty z tabeli user_guess_log
+    public function countPointsFromUserGuessLog(int $userId): int 
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT COUNT(*) AS correct_guesses FROM user_guess_log 
+            WHERE id_user = :userId AND guessed_correctly = true
+        ');
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)($result['correct_guesses'] ?? 0) * 100;
+    }
 
-            // Liczy punkty z tabeli user_guess_log_transfer
-            public function countPointsFromUserGuessLogTransfer(int $userId): int 
-            {
-                $stmt = $this->database->connect()->prepare('
-                    SELECT COUNT(*) AS correct_guesses FROM user_guess_log_transfer 
-                    WHERE id_user = :userId AND guessed_correctly = true
-                ');
-                $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-                $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                return (int)($result['correct_guesses'] ?? 0) * 100;
-            }
+    // Liczy punkty z tabeli user_guess_log_transfer
+    public function countPointsFromUserGuessLogTransfer(int $userId): int 
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT COUNT(*) AS correct_guesses FROM user_guess_log_transfer 
+            WHERE id_user = :userId AND guessed_correctly = true
+        ');
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)($result['correct_guesses'] ?? 0) * 100;
+    }
 
     public function deleteUser(int $userId): bool {
         $stmt = $this->database->connect()->prepare('DELETE FROM user_account WHERE id_user = :userId');

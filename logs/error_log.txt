@@ -1,4 +1,0 @@
-2025-01-02 00:04:25 - SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "user_account" violates foreign key constraint "user_account_id_role_fkey"
-DETAIL:  Key (id_role)=(1) is not present in table "role".
-2025-01-02 00:06:37 - SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "user_account" violates foreign key constraint "user_account_id_role_fkey"
-DETAIL:  Key (id_role)=(1) is not present in table "role".
