@@ -16,6 +16,7 @@ class DatabaseConnector {
         $this->database = DATABASE;
     }
 
+    
     public function connect()
     {
         try {
