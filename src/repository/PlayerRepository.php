@@ -38,7 +38,7 @@ class PlayerRepository {
             $playerData['position'], 
             (int)$playerData['age'], 
             (int)$playerData['shirt_number'],
-            $playerData['transfer_amount'] !== null ? (float)$playerData['transfer_amount'] : null // Handle null case
+            $playerData['transfer_amount'] !== null ? (float)$playerData['transfer_amount'] : null 
         ) : null;
     }
 
