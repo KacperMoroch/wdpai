@@ -135,7 +135,7 @@ class TransferController extends AppController
 
         if (!empty($userGuessLog) && $userGuessLog['guessed_correctly']) {
             $correctPlayerName = $correctPlayer->getName(); 
-            echo json_encode(['error' => 'Już zgadłeś dzisiaj piłkarza. Spróbuj ponownie jutro. Piłkarzem do zganięcia był: "' . $correctPlayerName . '" ']);
+            echo json_encode(['error' => 'Już zgadłeś dzisiaj piłkarza. Spróbuj ponownie jutro. Piłkarzem do zgadnięcia był: "' . $correctPlayerName . '" ']);
             return;
         }
 
@@ -143,7 +143,7 @@ class TransferController extends AppController
         if ($guessNumber >= 5) {
             $correctPlayerName = $correctPlayer->getName(); 
             echo json_encode([
-                'error' => 'Już nie możesz dzisiaj zgadywać, nie masz prób. Spróbuj ponownie jutro. Piłkarzem do zganięcia był: "' . $correctPlayerName . '" '
+                'error' => 'Już nie możesz dzisiaj zgadywać, nie masz prób. Spróbuj ponownie jutro. Piłkarzem do zgadnięcia był: "' . $correctPlayerName . '" '
             ]);
             return;
         }

@@ -60,6 +60,7 @@ h1 {
     padding: 10px 20px;
     border-radius: 10px;
     white-space: nowrap;
+    
 }
 
 .login-form {
@@ -150,9 +151,11 @@ h1 {
 
     /* Ustawienie h1 - tytuł formularza */
     h1 {
-        font-size: 1.25rem; 
+        font-size: 1.5rem; 
         margin-top: 0px; 
-        margin-bottom: 0px; 
+        margin-bottom: 0px;
+        margin-right:10px; 
+        
     }
 
     /* Formularz */
@@ -186,5 +189,12 @@ h1 {
     
     body.login-page .login-container {
         margin-top: 150px; 
+    }
+}
+@media (max-width: 480px) { 
+    h1 {
+        font-size: 1.5rem; 
+        margin-left: 10px; 
+        text-align: left; 
     }
 }

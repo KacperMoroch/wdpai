@@ -117,7 +117,6 @@ body {
     opacity: 1;
 }
 
-/* Ikona przenosząca na dashboard */
 .home-icon {
     position: absolute;
     bottom: 20px;
@@ -137,12 +136,12 @@ body {
 
 
     .profile-container {
-        width: 85%; 
-        top: 1%;
+        width: 473px; 
+        top: 0%;
         right: 0%;
         left: 41%;
         padding: 15px; 
-        max-height: 400px;
+        max-height: 363px;
     }
 
     .profile-info h2 {
