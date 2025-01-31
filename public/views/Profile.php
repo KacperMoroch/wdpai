@@ -54,7 +54,7 @@
                     <?= htmlspecialchars($pointsFromUserGuessLogTransfer) ?> za Zgadnij transfer)
                 </h3>
 
-                <h3>Osiągnięcia:</h3> <!-- Dodano nagłówek nad osiągnięciami -->
+                <h3>Osiągnięcia:</h3> 
 
                 <div class="achievements">
                     <!-- Osiągnięcia za Zgadnij piłkarza -->

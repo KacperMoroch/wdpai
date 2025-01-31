@@ -18,7 +18,7 @@
     <div class="top-text">
         Zgadnij piłkarza z TOP 5 lig europejskich
     </div>
-    <!-- Ikona domku w lewym górnym rogu -->
+    <!-- Ikona domku -->
     <div class="home-icon" onclick="window.location.href='/dashboard';"></div>
     <!-- Kontener dla gry, podzielony na dwie kolumny -->
     <div class="game">

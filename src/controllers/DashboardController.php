@@ -82,7 +82,7 @@ class DashboardController extends AppController
 
         $user = $this->userRepository->getUserSettings($userId);
     
-        // Nadpisz dane, jeśli są przekazane w $data
+        // Nadpisujemy dane, jeśli są przekazane w $data
         if (isset($data['user'])) {
             $user = array_merge($user, $data['user']);
         }
@@ -145,7 +145,7 @@ class DashboardController extends AppController
                 return $this->settings(['error' => 'Podany e-mail jest już zajęty!']);
             }
     
-            // Aktualizacja danych w bazie
+            // Aktualizacja danych
             $stmt = $db->prepare('UPDATE public.user_account SET login = :login, email = :email WHERE id_user = :userId');
             $stmt->execute([
                 'login' => $newLogin,

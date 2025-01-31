@@ -22,25 +22,21 @@ body {
     height: 100%;
     justify-content: flex-end;
 }
-
 .left-panel ul {
     padding: 0;
     margin: 0;
     list-style: none;
 }
-
 .left-panel li {
     display: flex;
     align-items: center;
     margin-bottom: 15px; 
 }
-
 .left-panel img {
     width: 40px; 
     height: 40px;
     margin-right: 10px;
 }
-
 .left-panel span {
     font-size: 1.2em; 
 }
@@ -57,11 +53,9 @@ button {
     color: white;
     cursor: pointer;
 }
-
 button:hover {
     background-color: #0056b3;
 }
-
 .settings-page {
     max-width: 700px;
     margin: 50px auto;
@@ -70,19 +64,16 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 .settings-page h1 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 2rem;
 }
-
 .settings-page label {
     display: block;
     margin: 10px 0 5px;
     font-size: 1.2rem;
 }
-
 .settings-page input {
     width: 100%;
     padding: 12px; 
@@ -92,7 +83,6 @@ button:hover {
     border-radius: 5px;
     transition: border-color 0.3s ease;
 }
-
 .settings-page button {
     width: 100%;
     padding: 10px;
@@ -104,11 +94,9 @@ button:hover {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 .settings-page button:hover {
     background-color: #21867a;
 }
-
 .settings-container {
     position: absolute;
     top: 0%;
@@ -125,13 +113,11 @@ button:hover {
     flex-direction: column;
     height: 85%; 
 }
-
 .settings-container h1 {
     margin-top: 10px;
     font-size: 1.8em;
     margin-bottom: 0px;
 }
-
 .delete-button {
     background-color: #e74c3c;
     color: #fff;
@@ -142,11 +128,9 @@ button:hover {
     font-size: 1em;
     margin-top: 30%; 
 }
-
 .delete-button:hover {
     background-color: #c0392b;
 }
-
 .back-button {
     display: inline-block;
     margin-top: 20px;
@@ -154,11 +138,9 @@ button:hover {
     text-decoration: none;
     font-size: 1em;
 }
-
 .back-button:hover {
     text-decoration: underline;
 }
-
 .home-icon {
     position: absolute;
     bottom: 20px;
@@ -173,13 +155,11 @@ button:hover {
     font-size: 1.2em;
     margin-bottom: 15px;
 }
-
 .error-message {
     color: #e74c3c;
     font-size: 1.2em;
     margin-bottom: 15px;
 }
-
 .settings-container input[type="text"],
 .settings-container input[type="email"] {
     width: 90%;
@@ -199,11 +179,12 @@ button:hover {
     outline: none;
 }
 
+
+
 @media (max-width: 852px) and (orientation: landscape) {
     .left-panel {
         display: none; 
     }
-
     .settings-container {
         max-width: 700px; 
         left: 70%; 
@@ -213,33 +194,28 @@ button:hover {
         margin-top: 5px;
         padding: 15px; 
     }
-
     button {
         width: 120px; 
         font-size: 1rem; 
         padding: 8px; 
     }
-
     .delete-button {
         width: 90px; 
         font-size: 0.8rem; 
         padding: 5px; 
         margin-top: 20px; 
     }
-
     .settings-container button[type="submit"] {
         width: 100%; 
         font-size: 1.2rem; 
         padding: 12px; 
     }
-
     .home-icon {
         width: 70px; 
         height: 70px;
         bottom: 10px;
         left: 10px;
     }
-
     .settings-container input[type="text"], 
     .settings-container input[type="email"] {
         width: 80%; 
@@ -251,7 +227,6 @@ button:hover {
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
         background-color: #fefefe;
     }
-
     /* Efekt podświetlenia pola input po kliknięciu */
     .settings-container input[type="text"]:focus,
     .settings-container input[type="email"]:focus {
@@ -260,6 +235,7 @@ button:hover {
         outline: none;
     }
 }
+
 
 
 @media (max-width: 852px) and (orientation: portrait) {
@@ -272,8 +248,6 @@ button:hover {
         padding: 5px;
         background: url('../assets/tlo_mobilne.jpg');
     }
-
-
     .settings-container {
         max-width: 500px; 
         width: 90%; 
@@ -290,13 +264,10 @@ button:hover {
         display: flex;
         flex-direction: column;
     }
-
     .settings-page {
         margin: 15px 5px; 
         width: 90%; 
     }
-
-    /* Zmniejszenie przycisków */
     button {
         width: 110px; 
         font-size: 1.2rem; 
@@ -309,23 +280,19 @@ button:hover {
         color: white;
         cursor: pointer;
     }
-
     button:hover {
         background-color: #0056b3;
     }
-
     .delete-button {
         margin-top: 15px; 
         padding: 8px 16px; 
     }
-
     .home-icon {
         width: 70px;
         height: 70px;
         top: 15px;
         left: 8px;
     }
-
     .settings-container input[type="text"],
     .settings-container input[type="email"] {
         width: 90%;
@@ -337,17 +304,14 @@ button:hover {
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
         background-color: #fefefe;
     }
-
     .settings-container input[type="text"]:focus,
     .settings-container input[type="email"]:focus {
         border-color: #007bff;
         box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
         outline: none;
     }
-
     .settings-page input,
     .settings-page label {
         font-size: 1rem;
     }
-
 }

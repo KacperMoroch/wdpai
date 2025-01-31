@@ -31,10 +31,11 @@ class SecurityController extends AppController
         }
 
         // Pobieramy dane z formularza
-        $emailOrLogin = $_POST['email']; // Może być email lub login
+        // Może być email lub login
+        $emailOrLogin = $_POST['email']; 
         $password = $_POST['password'];
 
-        // Pobieramy użytkownika z bazy danych
+        // Pobieramy użytkownika
         $user = $this->userRepository->getUserByEmailOrLogin($emailOrLogin);
 
         // Upewniamy się, że użytkownik istnieje
@@ -42,7 +43,7 @@ class SecurityController extends AppController
             return $this->render("login", ['error' => 'Użytkownik nie został znaleziony.']);
         }
 
-        // Użyj password_verify() aby sprawdzić, czy wprowadzone hasło jest poprawne
+        // Używamy password_verify() aby sprawdzić, czy wprowadzone hasło jest poprawne
         if (empty($user->getPassword()) || !password_verify($password, $user->getPassword())) {
             return $this->render("login", ['error' => 'Nieprawidłowy e-mail/login lub hasło.']);
         }

@@ -91,10 +91,8 @@ document.getElementById('guessForm').addEventListener('submit', async (e) => {
         }
 
 
-        // Update remaining attempts
         const remainingAttempts = result.remaining_attempts;
         document.getElementById('remainingAttempts').textContent = remainingAttempts;
-
 
 
 
@@ -151,7 +149,7 @@ function showMessage(message, type = 'error') {
     // Ustawiamy odpowiednią klasę dla typu wiadomości
     messageContainer.className = `message ${type}`;
     
-    // Pokaż wiadomość
+    // Pokazujemy wiadomość
     messageContainer.style.display = 'block';
     messageContainer.classList.remove('hidden');
     messageContainer.style.opacity = '1';

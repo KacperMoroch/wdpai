@@ -23,7 +23,6 @@ body {
     z-index: 10;
     line-height: 1.2;
 }
-
 /* Kontener dla gry */
 .game {
     display: flex;
@@ -37,13 +36,11 @@ body {
     margin-right: 20px; 
     margin-left: 300px;
 }
-
 /* Nagłówek */
 h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
-
 /* Formularz */
 form {
     display: flex;
@@ -53,7 +50,6 @@ form {
     margin-top: 10px; 
     margin-left: 16px;
 }
-
 /* Pole tekstowe */
 input[type="text"] {
     padding: 10px;
@@ -64,7 +60,6 @@ input[type="text"] {
     border-radius: 5px;
     outline: none;
 }
-
 /* Przycisk */
 button {
     padding: 8px;
@@ -77,11 +72,9 @@ button {
     color: white;
     cursor: pointer;
 }
-
 button:hover {
     background-color: #0056b3;
 }
-
 /* Styl dla wyników */
 #results {
     margin-top: 20px;
@@ -93,7 +86,6 @@ button:hover {
     font-size: 1.2rem;
     font-weight: bold; 
 }
-
 /* Wyniki dla każdego kryterium */
 .result-item {
     color: #000000;
@@ -103,17 +95,14 @@ button:hover {
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.5); 
 }
-
 /* Styl dla poprawnych wyników */
 .result-item.green {
     background-color: #28a745;
 }
-
 /* Styl dla błędnych wyników */
 .result-item.red {
     background-color: #dc3545;
 }
-
 /* Ikony wyników */
 .result-item img {
     width: 25px;
@@ -122,7 +111,7 @@ button:hover {
 }
 .game-over {
     font-size: 1.5rem;
-    color: #28a745;  /* Zielony kolor */
+    color: #28a745;  
     margin-top: 20px;
     font-weight: bold;
 }
@@ -155,15 +144,12 @@ button:hover {
     cursor: pointer; 
     z-index: 1000; 
 }
-
-
 .ui-autocomplete {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 1000; 
 }
-
 .ui-menu-item-wrapper {
     padding: 10px;
     font-size: 1rem;
@@ -172,7 +158,6 @@ button:hover {
     border-bottom: 1px solid #ddd;
     cursor: pointer;
 }
-
 .ui-menu-item-wrapper:hover {
     background-color: #007bff;
     color: white;
@@ -197,19 +182,16 @@ button:hover {
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 /* Ukryty komunikat */
 .message.hidden {
     display: none;
 }
-
 /* Komunikat sukcesu */
 .message.success {
     background-color: #d4edda;
     color: #155724;
     border-color: #c3e6cb;
 }
-
 .player-name {
     background-color: #007bff;
      color: white; 
@@ -229,7 +211,6 @@ button:hover {
     font-size: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-
 /* Styl kursora */
 .custom-cursor {
     width: 40px;
@@ -275,23 +256,21 @@ button:hover {
 }
 
 
-/* Styl responsywny */
+
+
 @media (max-width: 852px) and (orientation: landscape) {
     .top-text {
         font-size: 1.8rem;
         top: 10px;
     }
-
     .game {
         width: 45%; 
         margin-top: 75px;
         margin-left: 6%;
     }
-
     input[type="text"], button {
         font-size: 0.8rem;
     }
-
     #results-container {
         width: 45%;
         max-height: 250px;
@@ -300,14 +279,12 @@ button:hover {
         right: 2%; 
         top: 50px; 
     }
-
     .home-icon {
         top: 10px;
         left: 10px;
         width: 50px;
         height: 50px;
     }
-
     .remaining-attempts {
         font-size: 0.8rem;
         padding: 6px;
@@ -319,6 +296,9 @@ button:hover {
         margin-left: 0px;
     }
 }
+
+
+
 @media (max-width: 852px) and (orientation: portrait) {
     /* Napis na górze */
     .top-text {
@@ -328,7 +308,6 @@ button:hover {
         transform: translateX(-50%);
         text-align: center;
     }
-
     /* Kontener gry */
     .game {
         width: 90%; 
@@ -337,7 +316,6 @@ button:hover {
         top: 150px;
         order: 2;
     }
-
     /* Nagłówek gry */
     h1 {
         font-size: 2.5rem;
@@ -346,19 +324,16 @@ button:hover {
         left: 0px;
         bottom: 10px;
     }
-
     /* Formularz */
     form {
         align-items: center; 
         margin: 0px auto;
     }
-
     input[type="text"] {
         top: 10px;
         font-size: 1rem;
         width: 100%; 
     }
-
     button {
         font-size: 1.5rem;
         width: 60%; 
@@ -373,7 +348,6 @@ button:hover {
         width: 50px;
         height: 50px;
     }
-
     /* Kontener wyników */
     #results-container {
         order: 1; 
@@ -393,20 +367,17 @@ button:hover {
         border-top-right-radius: 15px;
         font-size: 0.9rem;
     }
-
     /* Komunikaty */
     .message {
         font-size: 1rem;
         padding: 10px;
     }
-
     /* Pozostałe próby */
     .remaining-attempts {
         font-size: 0.9rem;
         padding: 8px;
         bottom: 60px; 
     }
-
     .body {
         flex-direction: column;
     }

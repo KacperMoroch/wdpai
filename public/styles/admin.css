@@ -1,4 +1,3 @@
-/* Ogólne stylowanie strony */
 body {
     margin: 0;
     padding: 0;
@@ -26,25 +25,21 @@ body {
     height: 100%;
     justify-content: flex-end;
 }
-
 .left-panel ul {
     padding: 0;
     margin: 0;
     list-style: none;
 }
-
 .left-panel li {
     display: flex;
     align-items: center;
     margin-bottom: 15px; 
 }
-
 .left-panel img {
     width: 40px; 
     height: 40px;
     margin-right: 10px;
 }
-
 .left-panel span {
     font-size: 1.2em; 
 }
@@ -62,51 +57,43 @@ h1 {
     transform: translateX(-50%);
     z-index: 10;
 }
-
 /* Kontener dla tabeli */
 .table-container {
     position: absolute;
     top: 120px; 
     right: 70px; 
     width: 50%; 
-    max-height: 70vh; /* Maksymalna wysokość */
+    max-height: 70vh; 
     overflow-y: auto; /* Przewijanie w pionie */
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 0px;
 }
-
 /* Tabela użytkowników */
 table {
     width: 100%;
     border-collapse: collapse;
 }
-
 thead {
     background-color: #007bff;
     color: white;
     font-weight: bold;
 }
-
 thead th {
     padding: 15px;
     text-align: left;
 }
-
 tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
 tbody tr:hover {
     background-color: #d0ebff;
 }
-
 tbody td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
-
 /* Przyciski w tabeli */
 button {
     background-color: #dc3545;
@@ -119,20 +106,16 @@ button {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
 }
-
 button:hover {
     background-color: #a71d2a;
 }
-
 /* Formularze */
 form {
     display: inline;
 }
-
 input[type="hidden"] {
     display: none;
 }
-
 /* Ikona domku */
 .home-icon {
     position: absolute;
@@ -144,6 +127,8 @@ input[type="hidden"] {
     cursor: pointer;
 }
 
+
+
 @media (max-width: 852px) and (orientation: landscape) {
     .left-panel {
         display: none; 
@@ -153,25 +138,21 @@ input[type="hidden"] {
         align-items: center;
         padding: 10px;
     }
-
     h1 {
         font-size: 1.5rem;
         top: 5px;
         left: 65%;
     }
-
     .table-container {
         top: 80px;
         right: 0;
         width: 59%;
         max-height: 50vh;
     }
-
     button {
         font-size: 0.9rem;
         padding: 6px 10px;
     }
-
     .home-icon {
         width: 70px; 
         height: 70px;
@@ -179,6 +160,7 @@ input[type="hidden"] {
         left: 10px;
     }
 }
+
 
 
 @media (max-width: 852px) and (orientation: portrait) {
@@ -191,14 +173,12 @@ input[type="hidden"] {
         padding: 10px;
         background: url('../assets/tlo_mobilne.jpg');
     }
-
     h1 {
         font-size: 1.7rem;
         top: 205px;
         left: 50%;
         transform: translateX(-50%);
     }
-
     .table-container {
         top: 300px;
         width: 100%;
@@ -206,16 +186,13 @@ input[type="hidden"] {
         left: 50%;
         transform: translateX(-50%);
     }
-
     table {
         font-size: 0.9rem;
     }
-
     button {
         font-size: 0.8rem;
         padding: 6px 8px;
     }
-
     .home-icon {
         top: 10px;
         left: 10px;

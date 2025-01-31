@@ -38,7 +38,6 @@ class RegistrationController extends AppController {
             return $this->render("register", ['error' => 'Hasła nie pasują do siebie!']);
         }
 
-        // Korzystamy z UserRepository
         $userRepository = new UserRepository();
 
         // Sprawdzamy, czy użytkownik o podanym emailu już istnieje
@@ -58,16 +57,16 @@ class RegistrationController extends AppController {
 
         // Tworzymy nowego użytkownika
         $user = new User(
-            0, // ID jest generowane przez bazę danych
+            0, // ID
             $email,
-            $nickname, // Tymczasowo nickname jako imię
+            $nickname, 
             'Nieznane', // Tymczasowo "Nieznane" jako nazwisko
             null, // Avatar jest opcjonalny
             $hashed_password,
-            1, // Domyślnie przypisujemy rolę "User" (1)
+            1, // Domyślnie przypisujemy rolę "User" "1"
             $nickname, // Nickname
-            'User', // Role name
-            null // CreatedAt ustawimy później
+            'User', // Rolename
+            null // CreatedAt 
         );
 
         try {

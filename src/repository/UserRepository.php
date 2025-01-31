@@ -64,10 +64,10 @@ class UserRepository extends Repository {
                 'login' => $user->getLogin()
             ]);
     
-            $pdo->commit();
+            $pdo->commit(); // Rzucenie wyjątku, jeśli coś poszło nie tak
         } catch (Exception $e) {
             $pdo->rollBack();
-            throw $e; // Rzucenie wyjątku, jeśli coś poszło nie tak
+            throw $e; 
         }
     }
 

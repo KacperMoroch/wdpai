@@ -51,7 +51,7 @@
         <?php endif; ?>
     </div>
 
-    <!-- Informacja o zakończeniu gry (ukryta) -->
+    <!-- Informacja o zakończeniu gry-->
     <div id="gameOverState" style="display:none;">
         <?php echo json_encode($_SESSION['game_over'] ?? false); ?>
     </div>
